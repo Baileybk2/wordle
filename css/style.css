@@ -1,0 +1,43 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#instructions {
+  border: 2px solid black;
+}
+
+.message {
+  border: 2px solid black;
+}
+
+#word-box {
+  display: flex;
+  padding: 50px;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.letter-box {
+  background-color: lightgray;
+  height: 30px;
+  width: 30px;
+  border: 2px solid black;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+#keyboard {
+  background-color: darkgrey;
+  border: 2px solid black;
+}
