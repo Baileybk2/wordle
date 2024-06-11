@@ -18,6 +18,9 @@ const backspace = document.querySelector("#backspace");
 // grabs "submit" button
 const submit = document.querySelector("#submit");
 
+// grabs "reset" button
+const reset = document.querySelector("#reset");
+
 const win = document.querySelector("#win");
 
 /*---------- Variables (state) ---------*/
@@ -47,12 +50,13 @@ let generateMysteryWord = (words) => {
 
 // calling function to generate the word for the game
 let mysteryWord = generateMysteryWord(words);
+console.log("initialization mystery work:", mysteryWord);
 
 // splitting the word in to an array to be compared with the players array
 let mysteryWordArray = mysteryWord.split("").map((letter) => {
   return letter.toUpperCase();
 });
-console.log(mysteryWordArray);
+//console.log(mysteryWordArray);
 
 // Need a function that compares the players choice and the mystery word
 
@@ -104,6 +108,25 @@ submit.addEventListener("click", (event) => {
   compareArrays(mysteryWordArray, playerChoices);
 });
 
+reset.addEventListener("click", (event) => {
+  resetGame();
+});
+
+let resetGame = () => {
+  letterBoxes.forEach((box) => {
+    box.innerHTML = "";
+  });
+  mysteryWord = generateMysteryWord(words);
+  currentBoxIndex = 0;
+  matchedLetters = [];
+  unmatchedLetters = [];
+  mysteryWordArray = mysteryWord.split("").map((letter) => {
+    return letter.toUpperCase();
+  });
+
+  console.log("reset mystery word:", mysteryWord);
+};
+
 // function to compare arrays
 // first just check to see if letter indexes match
 let compareArrays = (mysteryWordArray, playerChoices) => {
@@ -117,6 +140,7 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
   console.log("arrays are equal:", arraysAreEqual);
 
   if (arraysAreEqual) {
+    matchedLetters = playerChoices;
     console.log("You Win!");
   } else {
     matchedLetters = playerChoices.filter((letter) =>
@@ -134,12 +158,16 @@ let arraysEqual = (array1, array2) => {
   if (array1.length !== array2.length) {
     return false;
   }
+
+  let isEqual = true;
+
   for (let i = 0; i < array1.length; i++) {
     if (array1[i] !== array2[i]) {
-      return false;
+      return (isEqual = false);
     }
-    return true;
   }
+
+  return isEqual;
 };
 
 // make a "submit" button event listener that on "click" takes the player's choice of letters and crates a new array
@@ -151,3 +179,8 @@ console.log("hello world");
 console.log(words);
 
 */
+// To Do:
+// match letter locations in the arrays
+// apply all current logic to each row in word-box
+// add color changes
+// apply functionality to "reset" button
