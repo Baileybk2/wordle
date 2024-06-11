@@ -23,6 +23,9 @@ body {
 }
 
 .letter-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: lightgray;
   height: 30px;
   width: 30px;

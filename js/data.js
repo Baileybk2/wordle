@@ -1,1 +1,1 @@
-words = ["apple", "world", "ocean", "house"];
+words = ["apple", "world", "ocean", "house", "horse", "bread", "crash"];
