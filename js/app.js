@@ -1,80 +1,55 @@
 /*-------------User Stories-------------*/
 
-// As a user, I want to be able to select keyboard keys to create a 5-letter word
-// As a user, I want to be able to submit my word and see it displayed in the word-box
-// As a user, I want to be able to clearly see the letters change colors based on the "color-change criteria"
+// As a user, I want to be able to select keyboard keys to create a 5-letter word🤩
+// As a user, I want to be able to submit my word and see it displayed in the word-box🤩
+// As a user, I want to be able to clearly see the letters change colors based on the "color-change criteria"🤩
 // As a user, I want to see a clear message indicating that I have won or lost
-// As a user I want to be able to reset the game to play again
+// As a user I want to be able to reset the game to play again 🤩
 
 /*-------------- Constants -------------*/
 
-// grabs all "keys" and makes a usable array
 const keysNodeArray = document.querySelectorAll(".keys");
 const keys = Array.from(keysNodeArray);
 
-// grabs "backspace" button
 const backspace = document.querySelector("#backspace");
 
-// grabs "submit" button
 const submit = document.querySelector("#submit");
 
-// grabs "reset" button
 const reset = document.querySelector("#reset");
 
 const win = document.querySelector("#win");
 
 /*---------- Variables (state) ---------*/
 
-// grabs all letterboxes and makes a usable array
 let letterBoxesNodeArray = document.querySelectorAll(".letter-box");
 let letterBoxes = Array.from(letterBoxesNodeArray);
-// console.log(letterBoxes);
 
-// creates a current box index variable to be used with button selections later
 let currentBoxIndex = 0;
 
-// variables to store used letters
 let matchedLetters = [];
 let unmatchedLetters = [];
 let doesNotExist = [];
 
-let cantContinue = false;
-let mustSubmit = false;
-/*----- Cached Element References  -----*/
+let cantContinue = false; // use this for stopping at 5 letters
+let mustSubmit = false; // use this too for stopping at 5 letters
 
 /*-------------- Functions -------------*/
 
-// Mystery word selection
 let generateMysteryWord = (words) => {
   let randomWordIndex = Math.floor(Math.random() * words.length);
   let randomMysteryWord = words[randomWordIndex];
   return randomMysteryWord;
 };
 
-// calling function to generate the word for the game
 let mysteryWord = generateMysteryWord(words);
 console.log("initialization mystery word:", mysteryWord);
 
-// splitting the word in to an array to be compared with the players array
 let mysteryWordArray = mysteryWord.split("").map((letter) => {
   return letter.toUpperCase();
 });
 
-// function will then need to compare the letters placement in each array for matching
-
-// Need a function that runs the color change critera
-
-// if letter in the letterbox is not equal to the letter in the mystery word and the letter doesnt exist in the myster word.. trun grey
-// else if the letter in the letterbox is not equal to the letter in the mystery word but exists in the mystery word//turn yellow
-// else the letter is in the mystery word and is equal to the letter in the mystery word.
-
-// Need a function that changes the colors of the letter boxes based on the color-change criteria
-
-// Need a function that shows a win or lose message depending on outcome
-
 /*----------- Event Listeners ----------*/
 
-// if 5th (or i % 5 === 0) index is attempted, no text should fill that index and a message should appear telling user to submit
 keys.forEach((key) => {
   key.addEventListener("click", (event) => {
     for (let i = 0; i < letterBoxes.length; i++) {
@@ -96,9 +71,6 @@ backspace.addEventListener("click", (event) => {
 });
 
 // SUBMIT
-// if user clicks submit at the 4, 9, 14, 19, 24, 29 index, run the compare arrays function, otherwise console log "word must be five letter "
-// change color of submit button when reaching these indexes?
-
 submit.addEventListener("click", (event) => {
   let submissionIndex = [4, 9, 14, 19, 24, 29];
   let isSubmittable = submissionIndex.includes(currentBoxIndex - 1);
@@ -106,8 +78,8 @@ submit.addEventListener("click", (event) => {
 
   if (isSubmittable) {
     let submittedChoice = letterBoxes.slice(
-      currentBoxIndex - 5, // 0 start index
-      currentBoxIndex // 5 end index
+      currentBoxIndex - 5,
+      currentBoxIndex
     );
 
     let playerChoices = submittedChoice.map((element) => {
@@ -127,8 +99,6 @@ submit.addEventListener("click", (event) => {
         submittedChoice[index].classList.add("partial-match");
       }
     });
-
-    // the letter is in the array but doesn't match the index
 
     console.log("playerChoices.length", playerChoices.length);
 
@@ -167,7 +137,7 @@ let resetGame = () => {
 };
 
 // COMPARE ARRAYS
-// still need: function to compare the LETTER placement in the array
+
 let compareArrays = (mysteryWordArray, playerChoices) => {
   console.log(
     "mysteryWordArray, playerChoices",
@@ -206,12 +176,11 @@ let arraysEqual = (array1, array2) => {
   return isEqual;
 };
 
-/*------------Code Graveyard------------
-console.log("hello world");
-console.log(words);
-
+/*------------Code Graveyard-----------
+To Do:
+1. Need a function that shows a win or lose message depending on outcome
+2. change color of submit button when reaching these indexes?
+3. if 6th letter is attempted, no text should fill that index and a message should appear telling user to submit
+4. beef up words array to 1000 words 
+5. style!
 */
-// To Do:
-// match letter locations in the arrays
-// apply all current logic to each row in word-box
-// add color changes
