@@ -36,7 +36,10 @@ let currentBoxIndex = 0;
 // variables to store used letters
 let matchedLetters = [];
 let unmatchedLetters = [];
+let doesNotExist = [];
 
+let cantContinue = false;
+let mustSubmit = false;
 /*----- Cached Element References  -----*/
 
 /*-------------- Functions -------------*/
@@ -79,35 +82,43 @@ let mysteryWordArray = mysteryWord.split("").map((letter) => {
 
 /*----------- Event Listeners ----------*/
 
+// if 5th (or i % 5 === 0) index is attempted, no text should fill that index and a message should appear telling user to submit
 keys.forEach((key) => {
   key.addEventListener("click", (event) => {
     for (let i = 0; i < letterBoxes.length; i++) {
       if (letterBoxes[i].innerHTML === "") {
         letterBoxes[i].innerHTML = event.target.innerText;
         currentBoxIndex += 1;
+        console.log("currentBoxIndex", currentBoxIndex);
         break;
       }
     }
   });
 });
 
+// BACKSPACE
 backspace.addEventListener("click", (event) => {
-  console.log("key text:", event.target.innerText);
-  letterBoxes[currentBoxIndex - 1].innerHTML = "";
-  currentBoxIndex -= 1;
+  if (!(currentBoxIndex % 5 === 0)) {
+    console.log("key text:", event.target.innerText);
+    letterBoxes[currentBoxIndex - 1].innerHTML = "";
+    currentBoxIndex -= 1;
+  }
 });
 
+// SUBMIT
 submit.addEventListener("click", (event) => {
-  let submittedChoice = letterBoxes.slice(0, 5);
+  let submittedChoice = letterBoxes.slice(currentBoxIndex - 5, currentBoxIndex);
 
   let playerChoices = submittedChoice.map((element) => {
     return element.innerHTML;
   });
+
   console.log(playerChoices);
 
   compareArrays(mysteryWordArray, playerChoices);
 });
 
+// RESET GAME
 reset.addEventListener("click", (event) => {
   resetGame();
 });
@@ -127,8 +138,8 @@ let resetGame = () => {
   console.log("reset mystery word:", mysteryWord);
 };
 
-// function to compare arrays
-// first just check to see if letter indexes match
+// COMPARE ARRAYS
+// still need: function to compare the LETTER placement in the array
 let compareArrays = (mysteryWordArray, playerChoices) => {
   console.log(
     "mysteryWordArray, playerChoices",
@@ -183,4 +194,3 @@ console.log(words);
 // match letter locations in the arrays
 // apply all current logic to each row in word-box
 // add color changes
-// apply functionality to "reset" button
