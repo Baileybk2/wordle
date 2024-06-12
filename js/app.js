@@ -53,21 +53,15 @@ let generateMysteryWord = (words) => {
 
 // calling function to generate the word for the game
 let mysteryWord = generateMysteryWord(words);
-console.log("initialization mystery work:", mysteryWord);
+console.log("initialization mystery word:", mysteryWord);
 
 // splitting the word in to an array to be compared with the players array
 let mysteryWordArray = mysteryWord.split("").map((letter) => {
   return letter.toUpperCase();
 });
-//console.log(mysteryWordArray);
 
-// Need a function that compares the players choice and the mystery word
-
-// function will need to add the letters in each letter box to an array
-// function will need to split the mystery word in to its own array and convert everything to uppercase
 // function will then need to compare the letters placement in each array for matching
 
-// Need function that stores the letters selected from the keyboard
 // Need a function that runs the color change critera
 
 // if letter in the letterbox is not equal to the letter in the mystery word and the letter doesnt exist in the myster word.. trun grey
@@ -78,8 +72,6 @@ let mysteryWordArray = mysteryWord.split("").map((letter) => {
 
 // Need a function that shows a win or lose message depending on outcome
 
-// Need a function that will reset the game if the "reset" button is clicked
-
 /*----------- Event Listeners ----------*/
 
 // if 5th (or i % 5 === 0) index is attempted, no text should fill that index and a message should appear telling user to submit
@@ -89,7 +81,6 @@ keys.forEach((key) => {
       if (letterBoxes[i].innerHTML === "") {
         letterBoxes[i].innerHTML = event.target.innerText;
         currentBoxIndex += 1;
-        console.log("currentBoxIndex", currentBoxIndex);
         break;
       }
     }
@@ -99,23 +90,57 @@ keys.forEach((key) => {
 // BACKSPACE
 backspace.addEventListener("click", (event) => {
   if (!(currentBoxIndex % 5 === 0)) {
-    console.log("key text:", event.target.innerText);
     letterBoxes[currentBoxIndex - 1].innerHTML = "";
     currentBoxIndex -= 1;
   }
 });
 
 // SUBMIT
+// if user clicks submit at the 4, 9, 14, 19, 24, 29 index, run the compare arrays function, otherwise console log "word must be five letter "
+// change color of submit button when reaching these indexes?
+
 submit.addEventListener("click", (event) => {
-  let submittedChoice = letterBoxes.slice(currentBoxIndex - 5, currentBoxIndex);
+  let submissionIndex = [4, 9, 14, 19, 24, 29];
+  let isSubmittable = submissionIndex.includes(currentBoxIndex - 1);
+  console.log("Submittable:", isSubmittable);
 
-  let playerChoices = submittedChoice.map((element) => {
-    return element.innerHTML;
-  });
+  if (isSubmittable) {
+    let submittedChoice = letterBoxes.slice(
+      currentBoxIndex - 5, // 0 start index
+      currentBoxIndex // 5 end index
+    );
 
-  console.log(playerChoices);
+    let playerChoices = submittedChoice.map((element) => {
+      return element.innerHTML;
+    });
 
-  compareArrays(mysteryWordArray, playerChoices);
+    playerChoices.forEach((letter, index) => {
+      let exactMatch = letter === mysteryWordArray[index];
+      let partialMatch = mysteryWordArray.includes(letter);
+      console.log("mysteryWordArrayindex:", mysteryWordArray[index]);
+      console.log("letter:", letter);
+      console.log("matched:", exactMatch);
+
+      if (exactMatch) {
+        submittedChoice[index].classList.add("matched-success");
+      } else if (partialMatch) {
+        submittedChoice[index].classList.add("partial-match");
+      }
+    });
+
+    // the letter is in the array but doesn't match the index
+
+    console.log("playerChoices.length", playerChoices.length);
+
+    if (playerChoices.length === 0) {
+      console.log("must submit words with 5 letters");
+    }
+
+    console.log(playerChoices);
+
+    compareArrays(mysteryWordArray, playerChoices);
+    playerChoices = [];
+  }
 });
 
 // RESET GAME
@@ -134,7 +159,10 @@ let resetGame = () => {
   mysteryWordArray = mysteryWord.split("").map((letter) => {
     return letter.toUpperCase();
   });
-
+  letterBoxes.forEach((box) => {
+    box.classList.remove("matched-success");
+    box.classList.remove("partial-match");
+  });
   console.log("reset mystery word:", mysteryWord);
 };
 
@@ -152,7 +180,6 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
 
   if (arraysAreEqual) {
     matchedLetters = playerChoices;
-    console.log("You Win!");
   } else {
     matchedLetters = playerChoices.filter((letter) =>
       mysteryWordArray.includes(letter)
@@ -161,8 +188,6 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
       (letter) => !mysteryWordArray.includes(letter)
     );
   }
-  console.log("matched letters array:", matchedLetters);
-  console.log("unmatched letters array:", unmatchedLetters);
 };
 
 let arraysEqual = (array1, array2) => {
@@ -180,10 +205,6 @@ let arraysEqual = (array1, array2) => {
 
   return isEqual;
 };
-
-// make a "submit" button event listener that on "click" takes the player's choice of letters and crates a new array
-
-// if user is at the final index (4) and doesn't click submit, show error message
 
 /*------------Code Graveyard------------
 console.log("hello world");

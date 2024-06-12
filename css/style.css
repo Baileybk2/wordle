@@ -3,6 +3,25 @@ body {
   flex-direction: column;
 }
 
+.letter-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(71, 70, 70);
+  color: white;
+  height: 30px;
+  width: 30px;
+  border: 2px solid black;
+}
+
+.matched-success {
+  background-color: rgb(19, 129, 19);
+}
+
+.partial-match {
+  background-color: rgb(180 171 12);
+}
+
 #instructions {
   border: 2px solid black;
 }
@@ -20,16 +39,6 @@ body {
 .row {
   display: flex;
   flex-direction: row;
-}
-
-.letter-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: lightgray;
-  height: 30px;
-  width: 30px;
-  border: 2px solid black;
 }
 
 h1 {
