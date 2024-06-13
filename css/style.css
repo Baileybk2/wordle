@@ -37,6 +37,10 @@ h2 {
   margin: 5px;
 }
 
+.hidden {
+  display: none;
+}
+
 #section1,
 #section2 {
   flex: 1;

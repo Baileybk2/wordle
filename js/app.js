@@ -17,7 +17,9 @@ const submit = document.querySelector("#submit");
 
 const reset = document.querySelector("#reset");
 
-const win = document.querySelector("#win");
+const winningMessage = document.querySelector("#win");
+const losingMessage = document.querySelector("#lose");
+const noMatchMessage = document.querySelector("#no-match");
 
 /*---------- Variables (state) ---------*/
 
@@ -134,6 +136,8 @@ let resetGame = () => {
     box.classList.remove("partial-match");
   });
   console.log("reset mystery word:", mysteryWord);
+  winningMessage.classList.add("hidden");
+  losingMessage.classList.add("hidden");
 };
 
 // COMPARE ARRAYS
@@ -147,9 +151,15 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
 
   let arraysAreEqual = arraysEqual(mysteryWordArray, playerChoices);
   console.log("arrays are equal:", arraysAreEqual);
+  debugger;
+
+  let lose = !arraysAreEqual && currentBoxIndex === 30;
 
   if (arraysAreEqual) {
     matchedLetters = playerChoices;
+    winningMessage.classList.remove("hidden");
+  } else if (lose) {
+    losingMessage.classList.remove("hidden");
   } else {
     matchedLetters = playerChoices.filter((letter) =>
       mysteryWordArray.includes(letter)
@@ -178,9 +188,6 @@ let arraysEqual = (array1, array2) => {
 
 /*------------Code Graveyard-----------
 To Do:
-1. Need a function that shows a win or lose message depending on outcome
 2. change color of submit button when reaching these indexes?
 3. if 6th letter is attempted, no text should fill that index and a message should appear telling user to submit
-4. beef up words array to 1000 words 
-5. style!
 */
