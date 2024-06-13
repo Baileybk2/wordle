@@ -1,16 +1,49 @@
+.sniglet-extrabold {
+  font-family: "Sniglet", system-ui;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.sniglet-regular {
+  font-family: "Sniglet", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   background-color: rgb(241, 163, 163);
-  padding: 30px;
+  padding: 25px 0px 30px 50px;
 }
 
 main {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-family: "Sniglet", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 90px;
+  text-align: center;
+  margin: 5px;
+}
+
+h2 {
+  font-family: "Sniglet", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  text-align: center;
+  margin: 5px;
 }
 
 #section1,
 #section2 {
   flex: 1;
+}
+
+#section2 {
+  padding: 20px;
 }
 
 .letter-box {
@@ -23,6 +56,9 @@ main {
   width: 50px;
   border: 2px solid black;
   border-radius: 5px;
+  font-size: 40px;
+  font-family: "Sniglet", system-ui, sans-serif;
+  font-weight: 400;
 }
 
 .matched-success {
@@ -30,11 +66,43 @@ main {
 }
 
 .partial-match {
-  background-color: rgb(180 171 12);
+  background-color: rgb(213, 203, 9);
 }
 
 #instructions {
   text-align: center;
+  margin: 23px;
+  border: 2px solid black;
+  padding: 9px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.655);
+}
+
+.color-rules {
+  margin: 5px;
+}
+
+#grey {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgb(71, 70, 70);
+  color: white;
+  padding: 5px;
+}
+
+#yellow {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgb(213, 203, 9);
+  padding: 5px;
+}
+
+#green {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgb(19, 129, 19);
+  color: white;
+  padding: 5px;
 }
 
 .message {
@@ -59,14 +127,6 @@ main {
 .row {
   display: flex;
   flex-direction: row;
-}
-
-h1 {
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
 }
 
 #keyboard-container {
@@ -99,6 +159,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px;
 }
 
 #buttons {
@@ -109,4 +170,9 @@ h2 {
   flex-direction: row;
   align-items: center;
   padding: 5px;
+}
+
+#buttons button {
+  padding: 3px 23px;
+  font-size: 15px;
 }
