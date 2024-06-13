@@ -37,6 +37,17 @@ h2 {
   margin: 5px;
 }
 
+#lose,
+#win,
+#error {
+  text-align: center;
+  margin: 23px;
+  border: 2px solid black;
+  padding: 9px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.655);
+}
+
 .hidden {
   display: none;
 }
@@ -75,7 +86,7 @@ h2 {
 
 #instructions {
   text-align: center;
-  margin: 23px;
+  margin: 15px;
   border: 2px solid black;
   padding: 9px;
   border-radius: 30px;

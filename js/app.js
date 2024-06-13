@@ -19,7 +19,7 @@ const reset = document.querySelector("#reset");
 
 const winningMessage = document.querySelector("#win");
 const losingMessage = document.querySelector("#lose");
-const noMatchMessage = document.querySelector("#no-match");
+const errorMessage = document.querySelector("#error");
 
 /*---------- Variables (state) ---------*/
 
@@ -76,7 +76,6 @@ backspace.addEventListener("click", (event) => {
 submit.addEventListener("click", (event) => {
   let submissionIndex = [4, 9, 14, 19, 24, 29];
   let isSubmittable = submissionIndex.includes(currentBoxIndex - 1);
-  console.log("Submittable:", isSubmittable);
 
   if (isSubmittable) {
     let submittedChoice = letterBoxes.slice(
@@ -91,9 +90,6 @@ submit.addEventListener("click", (event) => {
     playerChoices.forEach((letter, index) => {
       let exactMatch = letter === mysteryWordArray[index];
       let partialMatch = mysteryWordArray.includes(letter);
-      console.log("mysteryWordArrayindex:", mysteryWordArray[index]);
-      console.log("letter:", letter);
-      console.log("matched:", exactMatch);
 
       if (exactMatch) {
         submittedChoice[index].classList.add("matched-success");
@@ -102,13 +98,9 @@ submit.addEventListener("click", (event) => {
       }
     });
 
-    console.log("playerChoices.length", playerChoices.length);
-
     if (playerChoices.length === 0) {
       console.log("must submit words with 5 letters");
     }
-
-    console.log(playerChoices);
 
     compareArrays(mysteryWordArray, playerChoices);
     playerChoices = [];
@@ -138,28 +130,28 @@ let resetGame = () => {
   console.log("reset mystery word:", mysteryWord);
   winningMessage.classList.add("hidden");
   losingMessage.classList.add("hidden");
+  errorMessage.classList.add("hidden");
 };
 
 // COMPARE ARRAYS
 
 let compareArrays = (mysteryWordArray, playerChoices) => {
-  console.log(
-    "mysteryWordArray, playerChoices",
-    mysteryWordArray,
-    playerChoices
-  );
-
-  let arraysAreEqual = arraysEqual(mysteryWordArray, playerChoices);
-  console.log("arrays are equal:", arraysAreEqual);
   debugger;
 
+  let arrayToWord = playerChoices.join("").toLowerCase();
+  console.log("coverted array:", arrayToWord);
+  let arraysAreEqual = arraysEqual(mysteryWordArray, playerChoices);
+
   let lose = !arraysAreEqual && currentBoxIndex === 30;
+  let error = !words.includes(arrayToWord);
 
   if (arraysAreEqual) {
     matchedLetters = playerChoices;
     winningMessage.classList.remove("hidden");
   } else if (lose) {
     losingMessage.classList.remove("hidden");
+  } else if (error) {
+    errorMessage.classList.remove("hidden");
   } else {
     matchedLetters = playerChoices.filter((letter) =>
       mysteryWordArray.includes(letter)
