@@ -90,11 +90,36 @@ submit.addEventListener("click", (event) => {
     playerChoices.forEach((letter, index) => {
       let exactMatch = letter === mysteryWordArray[index];
       let partialMatch = mysteryWordArray.includes(letter);
+      let noMatch = !exactMatch && !partialMatch;
+
+      let updateKeyColors = () => {
+        keys.forEach((key) => {
+          if (key.innerHTML === letter) {
+            let isMatchedSuccess = key.classList.contains("matched-success");
+            let isPartialMatch = key.classList.contains("partial-macth");
+            let isNoMatch = key.classList.contains("no-match");
+            let noColor = !isMatchedSuccess && !isPartialMatch && !isNoMatch;
+            if (noColor) {
+              if (exactMatch) {
+                key.classList.add("matched-success");
+              } else if (partialMatch) {
+                key.classList.add("partial-match");
+              } else if (noMatch) {
+                key.classList.add("no-match");
+              }
+            }
+          }
+        });
+      };
 
       if (exactMatch) {
         submittedChoice[index].classList.add("matched-success");
+        updateKeyColors();
       } else if (partialMatch) {
         submittedChoice[index].classList.add("partial-match");
+        updateKeyColors();
+      } else if (noMatch) {
+        updateKeyColors();
       }
     });
 
@@ -131,6 +156,12 @@ let resetGame = () => {
   winningMessage.classList.add("hidden");
   losingMessage.classList.add("hidden");
   errorMessage.classList.add("hidden");
+
+  keys.forEach((key) => {
+    key.classList.remove("matched-success");
+    key.classList.remove("partial-match");
+    key.classList.remove("no-match");
+  });
 };
 
 // COMPARE ARRAYS
@@ -168,6 +199,12 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
       box.classList.remove("partial-match");
       box.innerHTML = "";
     });
+
+    // keys.forEach((key) => {
+    //   key.classList.remove("matched-success");
+    //   key.classList.remove("partial-match");
+    //   key.classList.remove("no-match");
+    // });
 
     currentBoxIndex -= 5;
   } else {
