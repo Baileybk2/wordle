@@ -100,7 +100,7 @@ h2 {
 
 .partial-match {
   background-color: rgb(213, 203, 9);
-  color: white;
+  color: black;
   transition: 0.5s ease-in-out;
 }
 
