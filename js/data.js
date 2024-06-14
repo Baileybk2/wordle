@@ -155,6 +155,7 @@ words = [
   "groan",
   "guilt",
   "grace",
+  "globe",
   "grand",
   "grass",
   "glare",

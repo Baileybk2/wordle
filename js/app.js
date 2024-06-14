@@ -136,23 +136,42 @@ let resetGame = () => {
 // COMPARE ARRAYS
 
 let compareArrays = (mysteryWordArray, playerChoices) => {
-  debugger;
-
   let arrayToWord = playerChoices.join("").toLowerCase();
   console.log("coverted array:", arrayToWord);
   let arraysAreEqual = arraysEqual(mysteryWordArray, playerChoices);
 
   let lose = !arraysAreEqual && currentBoxIndex === 30;
-  let error = !words.includes(arrayToWord);
+  let error = !words.includes(arrayToWord) && !lose && !arraysAreEqual;
 
   if (arraysAreEqual) {
     matchedLetters = playerChoices;
     winningMessage.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
   } else if (lose) {
     losingMessage.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
   } else if (error) {
     errorMessage.classList.remove("hidden");
+    let badBoxes = [
+      currentBoxIndex - 1,
+      currentBoxIndex - 2,
+      currentBoxIndex - 3,
+      currentBoxIndex - 4,
+      currentBoxIndex - 5,
+    ];
+    let boxesToReset = letterBoxes.filter((box, index) => {
+      return badBoxes.includes(index);
+    });
+
+    boxesToReset.forEach((box) => {
+      box.classList.remove("matched-success");
+      box.classList.remove("partial-match");
+      box.innerHTML = "";
+    });
+
+    currentBoxIndex -= 5;
   } else {
+    errorMessage.classList.add("hidden");
     matchedLetters = playerChoices.filter((letter) =>
       mysteryWordArray.includes(letter)
     );
