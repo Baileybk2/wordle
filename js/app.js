@@ -1,11 +1,3 @@
-/*-------------User Stories-------------*/
-
-// As a user, I want to be able to select keyboard keys to create a 5-letter word🤩
-// As a user, I want to be able to submit my word and see it displayed in the word-box🤩
-// As a user, I want to be able to clearly see the letters change colors based on the "color-change criteria"🤩
-// As a user, I want to see a clear message indicating that I have won or lost
-// As a user I want to be able to reset the game to play again 🤩
-
 /*-------------- Constants -------------*/
 
 const keysNodeArray = document.querySelectorAll(".keys");
@@ -18,7 +10,9 @@ const submit = document.querySelector("#submit");
 const reset = document.querySelector("#reset");
 
 const winningMessage = document.querySelector("#win");
+
 const losingMessage = document.querySelector("#lose");
+
 const errorMessage = document.querySelector("#error");
 
 /*---------- Variables (state) ---------*/
@@ -29,11 +23,8 @@ let letterBoxes = Array.from(letterBoxesNodeArray);
 let currentBoxIndex = 0;
 
 let matchedLetters = [];
-let unmatchedLetters = [];
-let doesNotExist = [];
 
-let cantContinue = false; // use this for stopping at 5 letters
-let mustSubmit = false; // use this too for stopping at 5 letters
+let unmatchedLetters = [];
 
 /*-------------- Functions -------------*/
 
@@ -44,7 +35,6 @@ let generateMysteryWord = (words) => {
 };
 
 let mysteryWord = generateMysteryWord(words);
-console.log("initialization mystery word:", mysteryWord);
 
 let mysteryWordArray = mysteryWord.split("").map((letter) => {
   return letter.toUpperCase();
@@ -64,7 +54,6 @@ keys.forEach((key) => {
   });
 });
 
-// BACKSPACE
 backspace.addEventListener("click", (event) => {
   if (!(currentBoxIndex % 5 === 0)) {
     letterBoxes[currentBoxIndex - 1].innerHTML = "";
@@ -72,7 +61,6 @@ backspace.addEventListener("click", (event) => {
   }
 });
 
-// SUBMIT
 submit.addEventListener("click", (event) => {
   let submissionIndex = [4, 9, 14, 19, 24, 29];
   let isSubmittable = submissionIndex.includes(currentBoxIndex - 1);
@@ -125,16 +113,11 @@ submit.addEventListener("click", (event) => {
       }
     });
 
-    if (playerChoices.length === 0) {
-      console.log("must submit words with 5 letters");
-    }
-
     compareArrays(mysteryWordArray, playerChoices);
     playerChoices = [];
   }
 });
 
-// RESET GAME
 reset.addEventListener("click", (event) => {
   resetGame();
 });
@@ -154,7 +137,6 @@ let resetGame = () => {
     box.classList.remove("matched-success");
     box.classList.remove("partial-match");
   });
-  console.log("reset mystery word:", mysteryWord);
   winningMessage.classList.add("hidden");
   losingMessage.classList.add("hidden");
   errorMessage.classList.add("hidden");
@@ -166,11 +148,8 @@ let resetGame = () => {
   });
 };
 
-// COMPARE ARRAYS
-
 let compareArrays = (mysteryWordArray, playerChoices) => {
   let arrayToWord = playerChoices.join("").toLowerCase();
-  console.log("coverted array:", arrayToWord);
   let arraysAreEqual = arraysEqual(mysteryWordArray, playerChoices);
 
   let lose = !arraysAreEqual && currentBoxIndex === 30;
@@ -202,12 +181,6 @@ let compareArrays = (mysteryWordArray, playerChoices) => {
       box.innerHTML = "";
     });
 
-    // keys.forEach((key) => {
-    //   key.classList.remove("matched-success");
-    //   key.classList.remove("partial-match");
-    //   key.classList.remove("no-match");
-    // });
-
     currentBoxIndex -= 5;
   } else {
     errorMessage.classList.add("hidden");
@@ -235,9 +208,3 @@ let arraysEqual = (array1, array2) => {
 
   return isEqual;
 };
-
-/*------------Code Graveyard-----------
-To Do:
-2. change color of submit button when reaching these indexes?
-3. if 6th letter is attempted, no text should fill that index and a message should appear telling user to submit
-*/
