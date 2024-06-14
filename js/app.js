@@ -99,8 +99,10 @@ submit.addEventListener("click", (event) => {
             let isPartialMatch = key.classList.contains("partial-macth");
             let isNoMatch = key.classList.contains("no-match");
             let noColor = !isMatchedSuccess && !isPartialMatch && !isNoMatch;
-            if (noColor) {
+
+            if (noColor || partialMatch) {
               if (exactMatch) {
+                key.classList.remove("partial-match");
                 key.classList.add("matched-success");
               } else if (partialMatch) {
                 key.classList.add("partial-match");
