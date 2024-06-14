@@ -1,4 +1,12 @@
 words = [
+  "arrow",
+  "event",
+  "plant",
+  "bands",
+  "along",
+  "aside",
+  "reeds",
+  "again",
   "apple",
   "alive",
   "anger",
