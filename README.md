@@ -2,11 +2,11 @@
 
 ![wordle name](https://i.imgur.com/r0WhEyO.png)
 
-## Welcome ot wordle!
+## Welcome to wordle!
 
 I chose this game because my favorite games to play are word games. I hadn't played wordle much before so I knew it would be a challenging opportunity to build the game.
 
-[Deployed Game]()
+[Deployed Game](https://baileybk2.github.io/wordle/)
 
 [Planning Materials](https://github.com/Baileybk2/wordle/blob/main/planning_material.txt)
 
