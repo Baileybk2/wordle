@@ -48,6 +48,8 @@ You can receive a winning message earlier than the final row if you guess the wo
 
 - Animations: [W3 Schools](https://www.w3schools.com/css/css3_animations.asp)
 
+- Node list vs. array explanation: [W3 Schools](https://www.w3schools.com/jsref/dom_obj_html_nodelist.asp#:~:text=A%20NodeList%20is%20an%20array,of%20nodes%20in%20a%20NodeList.)
+
 ### Planned Enhancements
 
 A few features I'd like to add:
